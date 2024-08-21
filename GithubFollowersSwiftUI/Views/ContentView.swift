@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                TopView(username: $username, isPresented: $isPresented, presentAlert: $presentAlert)
+                TopView
                 .padding()
                 .padding(.top, 40)
                 .toolbar(.hidden, for: .navigationBar)
@@ -29,36 +29,29 @@ struct ContentView: View {
             }
         }
     }
-}
-
-extension ContentView {
-    struct TopView: View {
-        @Binding var username: String
-        @Binding var isPresented: Bool
-        @Binding var presentAlert: Bool
-        
-        var body: some View {
-            VStack {
-                Image(.ghLogo)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .padding(.bottom, 20)
-                
-                GFTextField(username: $username, promptText: "Enter a username")
-                
-                Spacer()
-                
-                GFButton(title: "Get Followers", systemImage: "person.3", tintColor: .green) {
-                    if !username.isEmpty {
-                        isPresented.toggle()
-                    } else {
-                        presentAlert = true
-                    }
+    
+    @ViewBuilder
+    private var TopView: some View {
+        VStack {
+            Image(.ghLogo)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .padding(.bottom, 20)
+            
+            GFTextField(username: $username, promptText: "Enter a username")
+            
+            Spacer()
+            
+            GFButton(title: "Get Followers", systemImage: "person.3", tintColor: .green) {
+                if !username.isEmpty {
+                    isPresented.toggle()
+                } else {
+                    presentAlert = true
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
             }
+            .padding(.horizontal)
+            .padding(.bottom)
         }
     }
 }
