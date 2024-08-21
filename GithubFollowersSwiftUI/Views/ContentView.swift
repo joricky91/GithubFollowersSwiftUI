@@ -9,27 +9,57 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var username: String = ""
+    @State private var isPresented: Bool = false
+    @State private var presentAlert: Bool = false
     
     var body: some View {
-        VStack {
-            Image(.ghLogo)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-                .padding(.bottom, 20)
-            
-            GFTextField(username: $username, promptText: "Enter a username")
-            
-            Spacer()
-            
-            GFButton(title: "Get Followers", systemImage: "person.3", tintColor: .green) {
-                print(username)
+        NavigationStack {
+            ZStack {
+                TopView(username: $username, isPresented: $isPresented, presentAlert: $presentAlert)
+                .padding()
+                .padding(.top, 40)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationDestination(isPresented: $isPresented) {
+                    FollowerListView(username: username)
+                }
+                
+                if presentAlert {
+                    AlertView(presentAlert: $presentAlert, title: "Empty Username", description: "Please enter a username, we need to know who to look for 😀!", buttonTitle: "Ok")
+                }
             }
-            .padding(.horizontal)
-            .padding(.bottom)
         }
-        .padding()
-        .padding(.top, 40)
+    }
+}
+
+extension ContentView {
+    struct TopView: View {
+        @Binding var username: String
+        @Binding var isPresented: Bool
+        @Binding var presentAlert: Bool
+        
+        var body: some View {
+            VStack {
+                Image(.ghLogo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .padding(.bottom, 20)
+                
+                GFTextField(username: $username, promptText: "Enter a username")
+                
+                Spacer()
+                
+                GFButton(title: "Get Followers", systemImage: "person.3", tintColor: .green) {
+                    if !username.isEmpty {
+                        isPresented.toggle()
+                    } else {
+                        presentAlert = true
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
+            }
+        }
     }
 }
 
