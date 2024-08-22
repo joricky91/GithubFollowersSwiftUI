@@ -16,12 +16,15 @@ class GHViewModel: ObservableObject {
     @Published var hasMoreFollowers: Bool = true
     @Published var page: Int = 1
     
+    @Published var didError: Bool = false
+    @Published var errorMessage: String = ""
+    
     func loadMoreContent(follower: Follower, username: String) {
         let thresholdIndex = followers.index(followers.endIndex, offsetBy: -1)
         if followers[thresholdIndex] == follower, hasMoreFollowers {
             page += 1
             Task {
-                await getFollowers(username: username, gfErrorAction: {}, defaultErrorAction: {})
+                await getFollowers(username: username)
             }
         }
     }
@@ -40,9 +43,7 @@ class GHViewModel: ObservableObject {
         }
     }
     
-    @MainActor func getFollowers(username: String,
-                                 gfErrorAction: (() -> Void)? = nil,
-                                 defaultErrorAction: (() -> Void)? = nil) {
+    @MainActor func getFollowers(username: String) {
         Task {
             do {
                 isFetching = true
@@ -56,14 +57,11 @@ class GHViewModel: ObservableObject {
                     hasMoreFollowers = false
                 }
             } catch {
+                didError = true
                 if let gfError = error as? GFError {
-                    gfErrorAction?()
-//                    presentGFAlert(title: "Bad Stuff Happened", message: gfError.rawValue, buttonTitle: "Ok")
-                    print("Error found \(gfError)")
+                    errorMessage = gfError.rawValue
                 } else {
-                    defaultErrorAction?()
-//                    presentDefaultError()
-                    print("Error found \(error.localizedDescription)")
+                    errorMessage = "Something went wrong. Please try again"
                 }
                 isFetching = false
             }
