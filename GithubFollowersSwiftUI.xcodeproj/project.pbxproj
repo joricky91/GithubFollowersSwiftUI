@@ -21,6 +21,8 @@
 		51FCA1892C75A4D8001A1EC2 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1882C75A4D8001A1EC2 /* AlertView.swift */; };
 		51FCA18B2C75C45E001A1EC2 /* FavoriteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA18A2C75C45E001A1EC2 /* FavoriteListView.swift */; };
 		51FCA18D2C75C48F001A1EC2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA18C2C75C48F001A1EC2 /* MainView.swift */; };
+		51FCA1902C75E56F001A1EC2 /* FollowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA18F2C75E56F001A1EC2 /* FollowerView.swift */; };
+		51FCA1932C76D8C5001A1EC2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1922C76D8C5001A1EC2 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		51FCA1882C75A4D8001A1EC2 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		51FCA18A2C75C45E001A1EC2 /* FavoriteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListView.swift; sourceTree = "<group>"; };
 		51FCA18C2C75C48F001A1EC2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		51FCA18F2C75E56F001A1EC2 /* FollowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerView.swift; sourceTree = "<group>"; };
+		51FCA1922C76D8C5001A1EC2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,8 @@
 		51FCA1762C7591A6001A1EC2 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				51FCA1912C76D8BD001A1EC2 /* LoadingView */,
+				51FCA18E2C75E566001A1EC2 /* Cell */,
 				51FCA1872C75A4CC001A1EC2 /* Alert */,
 				51FCA1792C7591E3001A1EC2 /* Button */,
 				51FCA17A2C7591E9001A1EC2 /* Textfield */,
@@ -159,6 +165,22 @@
 				51FCA1882C75A4D8001A1EC2 /* AlertView.swift */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		51FCA18E2C75E566001A1EC2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				51FCA18F2C75E56F001A1EC2 /* FollowerView.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		51FCA1912C76D8BD001A1EC2 /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				51FCA1922C76D8C5001A1EC2 /* LoadingView.swift */,
+			);
+			path = LoadingView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,8 +258,10 @@
 				51FCA1862C75A3B3001A1EC2 /* Follower.swift in Sources */,
 				51FCA1652C7585C8001A1EC2 /* GithubFollowersSwiftUIApp.swift in Sources */,
 				51FCA1832C759B17001A1EC2 /* FollowerListView.swift in Sources */,
+				51FCA1932C76D8C5001A1EC2 /* LoadingView.swift in Sources */,
 				51FCA1812C759691001A1EC2 /* GHViewModel.swift in Sources */,
 				51FCA1892C75A4D8001A1EC2 /* AlertView.swift in Sources */,
+				51FCA1902C75E56F001A1EC2 /* FollowerView.swift in Sources */,
 				51FCA17D2C7593F7001A1EC2 /* NetworkManager.swift in Sources */,
 				51FCA1752C75912E001A1EC2 /* GFTextField.swift in Sources */,
 				51FCA1732C7590F1001A1EC2 /* GFButton.swift in Sources */,

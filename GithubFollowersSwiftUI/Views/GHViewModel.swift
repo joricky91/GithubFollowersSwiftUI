@@ -11,15 +11,34 @@ class GHViewModel: ObservableObject {
     
     @Published var followers: [Follower] = []
     @Published var shouldFetch: Bool = true
+    @Published var isFetching: Bool = true
+    @Published var hasMoreFollowers: Bool = true
+    @Published var page: Int = 1
     
-    @MainActor func getFollowers(username: String, page: Int,
+    func loadMoreContent(follower: Follower, username: String) {
+        let thresholdIndex = followers.index(followers.endIndex, offsetBy: -1)
+        if followers[thresholdIndex] == follower, hasMoreFollowers {
+            page += 1
+            Task {
+                await getFollowers(username: username, gfErrorAction: {}, defaultErrorAction: {})
+            }
+        }
+    }
+    
+    @MainActor func getFollowers(username: String,
                                  gfErrorAction: (() -> Void)? = nil,
                                  defaultErrorAction: (() -> Void)? = nil) {
         Task {
             do {
+                isFetching = true
                 let url = "\(username)/followers?per_page=100&page=\(page)"
                 let follower: [Follower] = try await NetworkManager.shared.getResponseList(url: url)
-                followers = follower
+                followers.append(contentsOf: follower)
+                isFetching = false
+                
+                if follower.count < 100 {
+                    hasMoreFollowers = false
+                }
             } catch {
                 if let gfError = error as? GFError {
                     gfErrorAction?()
@@ -30,6 +49,7 @@ class GHViewModel: ObservableObject {
 //                    presentDefaultError()
                     print("Error found \(error.localizedDescription)")
                 }
+                isFetching = false
             }
         }
     }
