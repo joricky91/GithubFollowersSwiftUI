@@ -21,6 +21,9 @@ struct FollowerListView: View {
         .navigationTitle("Followers")
         .navigationBarTitleDisplayMode(.large)
         .searchable(text: $search, placement: .navigationBarDrawer, prompt: "Search followers")
+        .onChange(of: search, { oldValue, newValue in
+            viewModel.search(searchText: search)
+        })
         .onAppear {
             if viewModel.shouldFetch {
                 

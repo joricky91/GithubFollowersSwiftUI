@@ -10,6 +10,7 @@ import Foundation
 class GHViewModel: ObservableObject {
     
     @Published var followers: [Follower] = []
+    @Published var originalFollower: [Follower] = []
     @Published var shouldFetch: Bool = true
     @Published var isFetching: Bool = true
     @Published var hasMoreFollowers: Bool = true
@@ -25,6 +26,20 @@ class GHViewModel: ObservableObject {
         }
     }
     
+    @MainActor func search(searchText: String) {
+        shouldFetch = false
+        isFetching = false
+        
+        if searchText.isEmpty {
+            followers.removeAll()
+            followers.append(contentsOf: originalFollower)
+        } else {
+            let filtered = originalFollower.filter { $0.login.lowercased().contains(searchText.lowercased()) }
+            followers.removeAll()
+            followers.append(contentsOf: filtered)
+        }
+    }
+    
     @MainActor func getFollowers(username: String,
                                  gfErrorAction: (() -> Void)? = nil,
                                  defaultErrorAction: (() -> Void)? = nil) {
@@ -33,6 +48,7 @@ class GHViewModel: ObservableObject {
                 isFetching = true
                 let url = "\(username)/followers?per_page=100&page=\(page)"
                 let follower: [Follower] = try await NetworkManager.shared.getResponseList(url: url)
+                originalFollower.append(contentsOf: follower)
                 followers.append(contentsOf: follower)
                 isFetching = false
                 

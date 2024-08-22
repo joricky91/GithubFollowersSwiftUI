@@ -9,20 +9,18 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        ZStack {
-            TabView {
-                ContentView()
-                    .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
-                    }
-                
-                FavoriteListView()
-                    .tabItem {
-                        Label("Favorites", systemImage: "star")
-                    }
-            }
-            .tint(.green)
+        TabView {
+            ContentView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            
+            FavoriteListView()
+                .tabItem {
+                    Label("Favorites", systemImage: "star")
+                }
         }
+        .tint(.green)
     }
 }
 
