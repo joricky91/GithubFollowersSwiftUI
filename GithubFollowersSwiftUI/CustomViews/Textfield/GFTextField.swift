@@ -19,11 +19,12 @@ struct GFTextField: View {
     var body: some View {
         HStack {
             TextField("", text: $username, prompt: Text(promptText))
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .autocorrectionDisabled()
                 .onChange(of: username) {
                     isEditing = true
                 }
-                .font(.title2)
-                .multilineTextAlignment(.center)
                 .padding(.trailing, isClear ? 16 : 0)
             
             if isClear {

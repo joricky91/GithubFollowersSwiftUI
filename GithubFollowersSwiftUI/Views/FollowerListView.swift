@@ -11,6 +11,7 @@ struct FollowerListView: View {
     @State private var page: Int = 1
     @StateObject var viewModel: GHViewModel = GHViewModel()
     
+    @State var presentDetail: Bool = false
     @State var search: String = ""
     var username: String = ""
     
@@ -18,15 +19,27 @@ struct FollowerListView: View {
         gridView
         .navigationTitle("Followers")
         .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $search, placement: .navigationBarDrawer, prompt: "Search followers")
-        .onChange(of: search, { oldValue, newValue in
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.getUserDetail(username: username)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .searchable(text: $search, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search followers")
+        .onChange(of: search) { _, _ in
             viewModel.search(searchText: search)
-        })
+        }
         .onAppear {
             if viewModel.shouldFetch {
                 viewModel.getFollowers(username: username)
                 viewModel.shouldFetch = false
             }
+        }
+        .sheet(isPresented: $presentDetail) {
+            DetailView()
         }
     }
     
@@ -40,6 +53,9 @@ struct FollowerListView: View {
                     LazyVGrid(columns: GridItem().makeThreeColumn(), spacing: 20) {
                         ForEach(viewModel.followers, id: \.self) { follower in
                             FollowerView(follower: follower)
+                                .onTapGesture {
+                                    presentDetail = true
+                                }
                                 .onAppear {
                                     viewModel.loadMoreContent(follower: follower, username: username)
                                 }

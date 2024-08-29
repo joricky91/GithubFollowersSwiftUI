@@ -68,4 +68,37 @@ class GHViewModel: ObservableObject {
         }
     }
     
+    @MainActor func getUserDetail(username: String) {
+        Task {
+            do {
+                isFetching = true
+                let user: User = try await NetworkManager.shared.getResponseObject(url: username)
+                print(user)
+                isFetching = false
+            } catch {
+                didError = true
+                if let gfError = error as? GFError {
+                    errorMessage = gfError.rawValue
+                } else {
+                    errorMessage = "Something went wrong. Please try again"
+                }
+                isFetching = false
+            }
+        }
+    }
+    
+}
+
+struct User: Codable {
+    let login: String
+    let avatarUrl: String
+    var name: String?
+    var location: String?
+    var bio: String?
+    let publicRepos: Int
+    let publicGists: Int
+    let htmlUrl: String
+    let following: Int
+    let followers: Int
+    let createdAt: Date
 }

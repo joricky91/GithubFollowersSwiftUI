@@ -24,6 +24,8 @@
 		51FCA1902C75E56F001A1EC2 /* FollowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA18F2C75E56F001A1EC2 /* FollowerView.swift */; };
 		51FCA1932C76D8C5001A1EC2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1922C76D8C5001A1EC2 /* LoadingView.swift */; };
 		51FCA1962C771692001A1EC2 /* GridItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1952C771692001A1EC2 /* GridItem+Ext.swift */; };
+		51FCA1992C77198D001A1EC2 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1982C77198D001A1EC2 /* DetailView.swift */; };
+		51FCA19C2C771D7A001A1EC2 /* GFDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA19B2C771D7A001A1EC2 /* GFDetailHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		51FCA18F2C75E56F001A1EC2 /* FollowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerView.swift; sourceTree = "<group>"; };
 		51FCA1922C76D8C5001A1EC2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		51FCA1952C771692001A1EC2 /* GridItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridItem+Ext.swift"; sourceTree = "<group>"; };
+		51FCA1982C77198D001A1EC2 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		51FCA19B2C771D7A001A1EC2 /* GFDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFDetailHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +81,12 @@
 		51FCA1632C7585C8001A1EC2 /* GithubFollowersSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				51FCA1942C771688001A1EC2 /* Extensions */,
-				51FCA1842C75A39F001A1EC2 /* Model */,
-				51FCA17B2C7593EE001A1EC2 /* Managers */,
 				51FCA1782C7591D5001A1EC2 /* Main */,
+				51FCA17B2C7593EE001A1EC2 /* Managers */,
+				51FCA1842C75A39F001A1EC2 /* Model */,
+				51FCA1942C771688001A1EC2 /* Extensions */,
 				51FCA1762C7591A6001A1EC2 /* CustomViews */,
+				51FCA1972C77170A001A1EC2 /* ViewModel */,
 				51FCA1772C7591B2001A1EC2 /* Views */,
 				51FCA16A2C7585CA001A1EC2 /* Preview Content */,
 			);
@@ -99,6 +104,7 @@
 		51FCA1762C7591A6001A1EC2 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				51FCA19A2C771D62001A1EC2 /* Views */,
 				51FCA1912C76D8BD001A1EC2 /* LoadingView */,
 				51FCA18E2C75E566001A1EC2 /* Cell */,
 				51FCA1872C75A4CC001A1EC2 /* Alert */,
@@ -112,10 +118,10 @@
 			isa = PBXGroup;
 			children = (
 				51FCA1662C7585C8001A1EC2 /* ContentView.swift */,
-				51FCA1802C759691001A1EC2 /* GHViewModel.swift */,
 				51FCA1822C759B17001A1EC2 /* FollowerListView.swift */,
 				51FCA18A2C75C45E001A1EC2 /* FavoriteListView.swift */,
 				51FCA18C2C75C48F001A1EC2 /* MainView.swift */,
+				51FCA1982C77198D001A1EC2 /* DetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +200,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		51FCA1972C77170A001A1EC2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				51FCA1802C759691001A1EC2 /* GHViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		51FCA19A2C771D62001A1EC2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				51FCA19B2C771D7A001A1EC2 /* GFDetailHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51FCA19C2C771D7A001A1EC2 /* GFDetailHeaderView.swift in Sources */,
 				51FCA1962C771692001A1EC2 /* GridItem+Ext.swift in Sources */,
 				51FCA1672C7585C8001A1EC2 /* ContentView.swift in Sources */,
 				51FCA18D2C75C48F001A1EC2 /* MainView.swift in Sources */,
@@ -273,6 +296,7 @@
 				51FCA1932C76D8C5001A1EC2 /* LoadingView.swift in Sources */,
 				51FCA1812C759691001A1EC2 /* GHViewModel.swift in Sources */,
 				51FCA1892C75A4D8001A1EC2 /* AlertView.swift in Sources */,
+				51FCA1992C77198D001A1EC2 /* DetailView.swift in Sources */,
 				51FCA1902C75E56F001A1EC2 /* FollowerView.swift in Sources */,
 				51FCA17D2C7593F7001A1EC2 /* NetworkManager.swift in Sources */,
 				51FCA1752C75912E001A1EC2 /* GFTextField.swift in Sources */,
