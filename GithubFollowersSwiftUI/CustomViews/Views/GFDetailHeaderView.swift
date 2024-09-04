@@ -36,11 +36,14 @@ struct GFDetailHeaderView: View {
                     Label(user.location ?? "No location available", systemImage: "mappin.and.ellipse")
                         .foregroundStyle(.secondary)
                 }
+                
+                Spacer()
             }
             
             Text(user.bio ?? "No bio available")
                 .foregroundStyle(.secondary)
         }
+        .padding(.horizontal)
     }
 }
 

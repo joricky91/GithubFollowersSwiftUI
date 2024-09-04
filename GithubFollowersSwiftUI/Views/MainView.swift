@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject var viewModel: GHViewModel
+    
     var body: some View {
         TabView {
             ContentView()
@@ -21,6 +23,11 @@ struct MainView: View {
                 }
         }
         .tint(.green)
+        .overlay {
+            if viewModel.isFetching {
+                LoadingView()
+            }
+        }
     }
 }
 

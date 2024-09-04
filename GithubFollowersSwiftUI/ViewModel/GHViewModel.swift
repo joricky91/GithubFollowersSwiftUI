@@ -11,8 +11,9 @@ class GHViewModel: ObservableObject {
     
     @Published var followers: [Follower] = []
     @Published var originalFollower: [Follower] = []
+    
     @Published var shouldFetch: Bool = true
-    @Published var isFetching: Bool = true
+    @Published var isFetching: Bool = false
     @Published var hasMoreFollowers: Bool = true
     @Published var page: Int = 1
     
@@ -56,25 +57,6 @@ class GHViewModel: ObservableObject {
                 if follower.count < 100 {
                     hasMoreFollowers = false
                 }
-            } catch {
-                didError = true
-                if let gfError = error as? GFError {
-                    errorMessage = gfError.rawValue
-                } else {
-                    errorMessage = "Something went wrong. Please try again"
-                }
-                isFetching = false
-            }
-        }
-    }
-    
-    @MainActor func getUserDetail(username: String) {
-        Task {
-            do {
-                isFetching = true
-                let user: User = try await NetworkManager.shared.getResponseObject(url: username)
-                print(user)
-                isFetching = false
             } catch {
                 didError = true
                 if let gfError = error as? GFError {

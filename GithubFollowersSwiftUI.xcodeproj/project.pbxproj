@@ -26,6 +26,10 @@
 		51FCA1962C771692001A1EC2 /* GridItem+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1952C771692001A1EC2 /* GridItem+Ext.swift */; };
 		51FCA1992C77198D001A1EC2 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1982C77198D001A1EC2 /* DetailView.swift */; };
 		51FCA19C2C771D7A001A1EC2 /* GFDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA19B2C771D7A001A1EC2 /* GFDetailHeaderView.swift */; };
+		51FCA19F2C85AB16001A1EC2 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = 51FCA19E2C85AB16001A1EC2 /* Atlantis */; };
+		51FCA1A22C86FC96001A1EC2 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A12C86FC96001A1EC2 /* DetailViewModel.swift */; };
+		51FCA1A42C8704FD001A1EC2 /* GFItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A32C8704FD001A1EC2 /* GFItemInfoView.swift */; };
+		51FCA1A62C870796001A1EC2 /* GFDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A52C870795001A1EC2 /* GFDetailItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		51FCA1952C771692001A1EC2 /* GridItem+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GridItem+Ext.swift"; sourceTree = "<group>"; };
 		51FCA1982C77198D001A1EC2 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		51FCA19B2C771D7A001A1EC2 /* GFDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFDetailHeaderView.swift; sourceTree = "<group>"; };
+		51FCA1A02C85AB5A001A1EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		51FCA1A12C86FC96001A1EC2 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		51FCA1A32C8704FD001A1EC2 /* GFItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoView.swift; sourceTree = "<group>"; };
+		51FCA1A52C870795001A1EC2 /* GFDetailItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFDetailItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51FCA19F2C85AB16001A1EC2 /* Atlantis in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +90,7 @@
 		51FCA1632C7585C8001A1EC2 /* GithubFollowersSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				51FCA1A02C85AB5A001A1EC2 /* Info.plist */,
 				51FCA1782C7591D5001A1EC2 /* Main */,
 				51FCA17B2C7593EE001A1EC2 /* Managers */,
 				51FCA1842C75A39F001A1EC2 /* Model */,
@@ -204,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				51FCA1802C759691001A1EC2 /* GHViewModel.swift */,
+				51FCA1A12C86FC96001A1EC2 /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -212,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				51FCA19B2C771D7A001A1EC2 /* GFDetailHeaderView.swift */,
+				51FCA1A32C8704FD001A1EC2 /* GFItemInfoView.swift */,
+				51FCA1A52C870795001A1EC2 /* GFDetailItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -232,6 +245,9 @@
 			dependencies = (
 			);
 			name = GithubFollowersSwiftUI;
+			packageProductDependencies = (
+				51FCA19E2C85AB16001A1EC2 /* Atlantis */,
+			);
 			productName = GithubFollowersSwiftUI;
 			productReference = 51FCA1612C7585C8001A1EC2 /* GithubFollowersSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -260,6 +276,9 @@
 				Base,
 			);
 			mainGroup = 51FCA1582C7585C8001A1EC2;
+			packageReferences = (
+				51FCA19D2C85AB16001A1EC2 /* XCRemoteSwiftPackageReference "atlantis" */,
+			);
 			productRefGroup = 51FCA1622C7585C8001A1EC2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -299,9 +318,12 @@
 				51FCA1992C77198D001A1EC2 /* DetailView.swift in Sources */,
 				51FCA1902C75E56F001A1EC2 /* FollowerView.swift in Sources */,
 				51FCA17D2C7593F7001A1EC2 /* NetworkManager.swift in Sources */,
+				51FCA1A22C86FC96001A1EC2 /* DetailViewModel.swift in Sources */,
 				51FCA1752C75912E001A1EC2 /* GFTextField.swift in Sources */,
+				51FCA1A62C870796001A1EC2 /* GFDetailItemView.swift in Sources */,
 				51FCA1732C7590F1001A1EC2 /* GFButton.swift in Sources */,
 				51FCA17F2C75952C001A1EC2 /* GFError.swift in Sources */,
+				51FCA1A42C8704FD001A1EC2 /* GFItemInfoView.swift in Sources */,
 				51FCA18B2C75C45E001A1EC2 /* FavoriteListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +461,8 @@
 				DEVELOPMENT_TEAM = SHR59DG262;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GithubFollowersSwiftUI/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -468,6 +492,8 @@
 				DEVELOPMENT_TEAM = SHR59DG262;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GithubFollowersSwiftUI/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -508,6 +534,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		51FCA19D2C85AB16001A1EC2 /* XCRemoteSwiftPackageReference "atlantis" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ProxymanApp/atlantis.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		51FCA19E2C85AB16001A1EC2 /* Atlantis */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51FCA19D2C85AB16001A1EC2 /* XCRemoteSwiftPackageReference "atlantis" */;
+			productName = Atlantis;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 51FCA1592C7585C8001A1EC2 /* Project object */;
 }

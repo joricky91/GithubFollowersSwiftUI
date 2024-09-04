@@ -9,11 +9,13 @@ import SwiftUI
 
 struct FollowerListView: View {
     @State private var page: Int = 1
-    @StateObject var viewModel: GHViewModel = GHViewModel()
     
-    @State var presentDetail: Bool = false
+    @State var follower: Follower? = nil
     @State var search: String = ""
+
     var username: String = ""
+    
+    @EnvironmentObject var viewModel: GHViewModel
     
     var body: some View {
         gridView
@@ -22,7 +24,7 @@ struct FollowerListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    viewModel.getUserDetail(username: username)
+                    
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -38,8 +40,11 @@ struct FollowerListView: View {
                 viewModel.shouldFetch = false
             }
         }
-        .sheet(isPresented: $presentDetail) {
-            DetailView()
+        .onDisappear {
+            viewModel.shouldFetch = true
+        }
+        .sheet(item: $follower) { foll in
+            DetailView(username: foll.login)
         }
     }
     
@@ -54,7 +59,7 @@ struct FollowerListView: View {
                         ForEach(viewModel.followers, id: \.self) { follower in
                             FollowerView(follower: follower)
                                 .onTapGesture {
-                                    presentDetail = true
+                                    self.follower = follower
                                 }
                                 .onAppear {
                                     viewModel.loadMoreContent(follower: follower, username: username)
@@ -65,9 +70,9 @@ struct FollowerListView: View {
                 }
             }
             
-            if viewModel.isFetching {
-                LoadingView()
-            }
+//            if viewModel.isFetching {
+//                LoadingView()
+//            }
             
             if viewModel.didError {
                 AlertView(presentAlert: $viewModel.didError, title: "Bad stuff happened", description: viewModel.errorMessage, buttonTitle: "Ok")
@@ -76,6 +81,6 @@ struct FollowerListView: View {
     }
 }
 
-#Preview {
-    FollowerListView()
-}
+//#Preview {
+//    FollowerListView()
+//}
