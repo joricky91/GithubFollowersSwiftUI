@@ -16,7 +16,8 @@ struct GFDetailItemView: View {
     var type: GFDetailItemViewType
     var valueOne: Int
     var valueTwo: Int
-    var action: (() -> Void)
+    var url: String
+    var action: (() -> Void)?
     
     var body: some View {
         VStack(spacing: 16) {
@@ -30,10 +31,22 @@ struct GFDetailItemView: View {
                                value: valueTwo)
             }
             
-            GFButton(title: self.type == .repo ? "Github Profile" : "Get Followers",
-                     systemImage: self.type == .repo ? "person" : "person.3",
-                     tintColor: self.type == .repo ? .purple : .green,
-                     action: action)
+            if type == .repo {
+                NavigationLink {
+                    WebView(url: url)
+                } label: {
+                    GFButton(title: "Github Profile",
+                             systemImage: "person",
+                             tintColor: .purple)
+                }
+            } else {
+                GFButton(title: "Get Followers",
+                         systemImage: "person.3",
+                         tintColor: .green)
+                .onTapGesture {
+                    action?()
+                }
+            }
         }
         .padding(.horizontal)
         .padding(.vertical, 20)
@@ -42,7 +55,7 @@ struct GFDetailItemView: View {
         .padding(.horizontal)
     }
 }
-
-#Preview {
-    GFDetailItemView(type: .repo, valueOne: 30, valueTwo: 20) {}
-}
+//
+//#Preview {
+//    GFDetailItemView(type: .repo, valueOne: 30, valueTwo: 20) {}
+//}

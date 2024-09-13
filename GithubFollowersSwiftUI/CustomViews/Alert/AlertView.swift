@@ -28,10 +28,11 @@ struct AlertView: View {
                 Text(description)
                     .multilineTextAlignment(.center)
                 
-                GFButton(title: buttonTitle, systemImage: "checkmark.circle", tintColor: .red) {
+                GFButton(title: buttonTitle, systemImage: "checkmark.circle", tintColor: .red)
+                .padding(.top)
+                .onTapGesture {
                     presentAlert = false
                 }
-                .padding(.top)
             }
             .padding()
             .background(.background)

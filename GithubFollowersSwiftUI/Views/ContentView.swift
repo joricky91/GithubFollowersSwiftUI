@@ -43,15 +43,16 @@ struct ContentView: View {
             
             Spacer()
             
-            GFButton(title: "Get Followers", systemImage: "person.3", tintColor: .green) {
-                if !username.isEmpty {
-                    isPresented.toggle()
-                } else {
-                    presentAlert = true
+            GFButton(title: "Get Followers", systemImage: "person.3", tintColor: .green)
+                .onTapGesture {
+                    if !username.isEmpty {
+                        isPresented.toggle()
+                    } else {
+                        presentAlert = true
+                    }
                 }
-            }
-            .padding(.horizontal)
-            .padding(.bottom)
+                .padding(.horizontal)
+                .padding(.bottom)
         }
     }
 }

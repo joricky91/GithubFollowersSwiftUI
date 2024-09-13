@@ -12,8 +12,9 @@ struct FollowerListView: View {
     
     @State var follower: Follower? = nil
     @State var search: String = ""
+    @State var shouldFetchFollowing: Bool = false
 
-    var username: String = ""
+    @State var username: String = ""
     
     @EnvironmentObject var viewModel: GHViewModel
     
@@ -43,9 +44,16 @@ struct FollowerListView: View {
         .onDisappear {
             viewModel.shouldFetch = true
         }
-        .sheet(item: $follower) { foll in
-            DetailView(username: foll.login)
-        }
+        .sheet(item: $follower, onDismiss: {
+            if shouldFetchFollowing {
+                viewModel.page = 1
+                viewModel.originalFollower.removeAll()
+                viewModel.followers.removeAll()
+                viewModel.getFollowers(username: username)
+            }
+        }, content: { foll in
+            DetailView(shouldFetchFollowing: $shouldFetchFollowing, username: foll.login)
+        })
     }
     
     @ViewBuilder
@@ -60,6 +68,7 @@ struct FollowerListView: View {
                             FollowerView(follower: follower)
                                 .onTapGesture {
                                     self.follower = follower
+                                    self.username = follower.login
                                 }
                                 .onAppear {
                                     viewModel.loadMoreContent(follower: follower, username: username)

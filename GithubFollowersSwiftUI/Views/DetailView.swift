@@ -6,16 +6,37 @@
 //
 
 import SwiftUI
+import WebKit
+
+extension WKWebView {
+    func load(_ urlString: String) {
+        if let url = URL(string: urlString) {
+            let request = URLRequest(url: url)
+            load(request)
+        }
+    }
+}
+
+struct WebView: UIViewRepresentable {
+    @State var url: String
+    
+    func makeUIView(context: Context) -> WKWebView  {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        uiView.load(url)
+    }
+}
 
 struct DetailView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
     
-    private var username: String
+    @Binding var shouldFetchFollowing: Bool
+    @State var presentWebview: Bool = false
     
-    init(username: String) {
-        self.username = username
-    }
+    var username: String
     
     var body: some View {
         NavigationStack {
@@ -23,18 +44,24 @@ struct DetailView: View {
                 if let user = viewModel.user {
                     GFDetailHeaderView(user: user)
                     
-                    GFDetailItemView(type: .repo, valueOne: user.publicRepos, valueTwo: user.publicGists) {
-                        
+                    GFDetailItemView(type: .repo, valueOne: user.publicRepos, valueTwo: user.publicGists, url: user.htmlUrl)
+                    
+                    GFDetailItemView(type: .info, valueOne: user.followers, valueTwo: user.following, url: "") {
+                        shouldFetchFollowing = true
+                        dismiss()
                     }
                     
-                    GFDetailItemView(type: .info, valueOne: user.followers, valueTwo: user.following) {
-                        
-                    }
+                    Text("Github since \(user.createdAt.convertToMonthYearFormat())")
+                        .foregroundStyle(.secondary)
+                    
+                    Spacer()
                 }
             }
+            .padding(.top)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        shouldFetchFollowing = false
                         dismiss()
                     } label: {
                         Text("Done")
