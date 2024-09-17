@@ -8,7 +8,7 @@
 import Foundation
 
 struct Follower: Codable, Hashable, Identifiable {
-    var id: Int
+    var id: Int?
     var login: String
     var avatarUrl: String
 }

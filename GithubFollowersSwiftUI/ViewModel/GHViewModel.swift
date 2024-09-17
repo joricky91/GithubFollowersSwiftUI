@@ -20,12 +20,16 @@ class GHViewModel: ObservableObject {
     @Published var didError: Bool = false
     @Published var errorMessage: String = ""
     
+    @Published var user: User?
+    
     func loadMoreContent(follower: Follower, username: String) {
-        let thresholdIndex = followers.index(followers.endIndex, offsetBy: -1)
-        if followers[thresholdIndex] == follower, hasMoreFollowers {
-            page += 1
-            Task {
-                await getFollowers(username: username)
+        if !followers.isEmpty {
+            let thresholdIndex = followers.index(followers.endIndex, offsetBy: -1)
+            if followers[thresholdIndex] == follower, hasMoreFollowers {
+                page += 1
+                Task {
+                    await getFollowers(username: username)
+                }
             }
         }
     }
@@ -57,6 +61,25 @@ class GHViewModel: ObservableObject {
                 if follower.count < 100 {
                     hasMoreFollowers = false
                 }
+            } catch {
+                didError = true
+                if let gfError = error as? GFError {
+                    errorMessage = gfError.rawValue
+                } else {
+                    errorMessage = "Something went wrong. Please try again"
+                }
+                isFetching = false
+            }
+        }
+    }
+    
+    @MainActor func getUserDetail(username: String) {
+        Task {
+            do {
+                isFetching = true
+                let user: User = try await NetworkManager.shared.getResponseObject(url: "\(username)")
+                self.user = user
+                isFetching = false
             } catch {
                 didError = true
                 if let gfError = error as? GFError {

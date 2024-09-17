@@ -25,7 +25,7 @@ struct FollowerListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    
+                    addButtonTapped()
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -37,12 +37,19 @@ struct FollowerListView: View {
         }
         .onAppear {
             if viewModel.shouldFetch {
+                if !viewModel.followers.isEmpty {
+                    viewModel.page = 1
+                    viewModel.originalFollower.removeAll()
+                    viewModel.followers.removeAll()
+                }
+                
                 viewModel.getFollowers(username: username)
                 viewModel.shouldFetch = false
             }
         }
         .onDisappear {
             viewModel.shouldFetch = true
+            viewModel.hasMoreFollowers = true
         }
         .sheet(item: $follower, onDismiss: {
             if shouldFetchFollowing {
@@ -85,6 +92,33 @@ struct FollowerListView: View {
             
             if viewModel.didError {
                 AlertView(presentAlert: $viewModel.didError, title: "Bad stuff happened", description: viewModel.errorMessage, buttonTitle: "Ok")
+            }
+        }
+    }
+    
+    func addButtonTapped() {
+        viewModel.getUserDetail(username: username)
+        if let user = viewModel.user {
+            addUserToFavorites(user: user)
+        }
+    }
+    
+    func addUserToFavorites(user: User) {
+        let favorite = Follower(login: user.login, avatarUrl: user.avatarUrl)
+        PersistenceManager.updateWith(favorite: favorite, actionType: .add) { error in
+            guard let error else {
+                DispatchQueue.main.async {
+                    self.viewModel.didError = true
+                    self.viewModel.errorMessage = "You have successfully favorited this user"
+//                    self?.presentGFAlert(title: "Success!", message: "You have successfully favorited this user", buttonTitle: "Hooray!")
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.viewModel.didError = true
+                self.viewModel.errorMessage = error.rawValue
+//                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }

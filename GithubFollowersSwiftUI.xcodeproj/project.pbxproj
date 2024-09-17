@@ -31,6 +31,7 @@
 		51FCA1A42C8704FD001A1EC2 /* GFItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A32C8704FD001A1EC2 /* GFItemInfoView.swift */; };
 		51FCA1A62C870796001A1EC2 /* GFDetailItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A52C870795001A1EC2 /* GFDetailItemView.swift */; };
 		51FCA1A82C884FB7001A1EC2 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A72C884FB7001A1EC2 /* Date+Ext.swift */; };
+		51FCA1AA2C93DD14001A1EC2 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FCA1A92C93DD14001A1EC2 /* PersistenceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		51FCA1A32C8704FD001A1EC2 /* GFItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoView.swift; sourceTree = "<group>"; };
 		51FCA1A52C870795001A1EC2 /* GFDetailItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFDetailItemView.swift; sourceTree = "<group>"; };
 		51FCA1A72C884FB7001A1EC2 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		51FCA1A92C93DD14001A1EC2 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				51FCA17C2C7593F7001A1EC2 /* NetworkManager.swift */,
+				51FCA1A92C93DD14001A1EC2 /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				51FCA1832C759B17001A1EC2 /* FollowerListView.swift in Sources */,
 				51FCA1932C76D8C5001A1EC2 /* LoadingView.swift in Sources */,
 				51FCA1812C759691001A1EC2 /* GHViewModel.swift in Sources */,
+				51FCA1AA2C93DD14001A1EC2 /* PersistenceManager.swift in Sources */,
 				51FCA1892C75A4D8001A1EC2 /* AlertView.swift in Sources */,
 				51FCA1992C77198D001A1EC2 /* DetailView.swift in Sources */,
 				51FCA1902C75E56F001A1EC2 /* FollowerView.swift in Sources */,
