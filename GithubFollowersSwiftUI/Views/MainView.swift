@@ -27,6 +27,10 @@ struct MainView: View {
             if viewModel.isFetching {
                 LoadingView()
             }
+            
+            if viewModel.didError {
+                AlertView(presentAlert: $viewModel.didError, title: viewModel.errorTitle, description: viewModel.errorMessage, buttonTitle: "Ok")
+            }
         }
     }
 }

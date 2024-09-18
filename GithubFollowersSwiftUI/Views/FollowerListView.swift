@@ -15,6 +15,7 @@ struct FollowerListView: View {
     @State var shouldFetchFollowing: Bool = false
 
     @State var username: String = ""
+    @State var newUsername: String = ""
     
     @EnvironmentObject var viewModel: GHViewModel
     
@@ -36,28 +37,14 @@ struct FollowerListView: View {
             viewModel.search(searchText: search)
         }
         .onAppear {
-            if viewModel.shouldFetch {
-                if !viewModel.followers.isEmpty {
-                    viewModel.page = 1
-                    viewModel.originalFollower.removeAll()
-                    viewModel.followers.removeAll()
-                }
-                
-                viewModel.getFollowers(username: username)
-                viewModel.shouldFetch = false
-            }
+            getInitialData()
         }
         .onDisappear {
             viewModel.shouldFetch = true
             viewModel.hasMoreFollowers = true
         }
         .sheet(item: $follower, onDismiss: {
-            if shouldFetchFollowing {
-                viewModel.page = 1
-                viewModel.originalFollower.removeAll()
-                viewModel.followers.removeAll()
-                viewModel.getFollowers(username: username)
-            }
+            getSelectedUsersFollowers()
         }, content: { foll in
             DetailView(shouldFetchFollowing: $shouldFetchFollowing, username: foll.login)
         })
@@ -75,7 +62,7 @@ struct FollowerListView: View {
                             FollowerView(follower: follower)
                                 .onTapGesture {
                                     self.follower = follower
-                                    self.username = follower.login
+                                    self.newUsername = follower.login
                                 }
                                 .onAppear {
                                     viewModel.loadMoreContent(follower: follower, username: username)
@@ -85,21 +72,38 @@ struct FollowerListView: View {
                     .padding(.horizontal)
                 }
             }
-            
-//            if viewModel.isFetching {
-//                LoadingView()
-//            }
-            
-            if viewModel.didError {
-                AlertView(presentAlert: $viewModel.didError, title: "Bad stuff happened", description: viewModel.errorMessage, buttonTitle: "Ok")
+        }
+    }
+}
+
+extension FollowerListView {
+    func getInitialData() {
+        if viewModel.shouldFetch {
+            if !viewModel.followers.isEmpty {
+                viewModel.page = 1
+                viewModel.originalFollower.removeAll()
+                viewModel.followers.removeAll()
             }
+            
+            viewModel.getFollowers(username: username)
+            viewModel.shouldFetch = false
+        }
+    }
+    
+    func getSelectedUsersFollowers() {
+        if shouldFetchFollowing {
+            viewModel.page = 1
+            viewModel.originalFollower.removeAll()
+            viewModel.followers.removeAll()
+            viewModel.getFollowers(username: newUsername)
         }
     }
     
     func addButtonTapped() {
-        viewModel.getUserDetail(username: username)
-        if let user = viewModel.user {
-            addUserToFavorites(user: user)
+        viewModel.getUserDetail(username: username) {
+            if let user = viewModel.user {
+                addUserToFavorites(user: user)
+            }
         }
     }
     
@@ -109,16 +113,16 @@ struct FollowerListView: View {
             guard let error else {
                 DispatchQueue.main.async {
                     self.viewModel.didError = true
+                    self.viewModel.errorTitle = "Success!"
                     self.viewModel.errorMessage = "You have successfully favorited this user"
-//                    self?.presentGFAlert(title: "Success!", message: "You have successfully favorited this user", buttonTitle: "Hooray!")
                 }
                 return
             }
             
             DispatchQueue.main.async {
                 self.viewModel.didError = true
+                self.viewModel.errorTitle = "Something went wrong"
                 self.viewModel.errorMessage = error.rawValue
-//                self.presentGFAlert(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }

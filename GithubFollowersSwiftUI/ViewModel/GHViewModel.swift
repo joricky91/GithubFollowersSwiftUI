@@ -18,6 +18,7 @@ class GHViewModel: ObservableObject {
     @Published var page: Int = 1
     
     @Published var didError: Bool = false
+    @Published var errorTitle: String = "Bad Stuff Happened"
     @Published var errorMessage: String = ""
     
     @Published var user: User?
@@ -73,13 +74,14 @@ class GHViewModel: ObservableObject {
         }
     }
     
-    @MainActor func getUserDetail(username: String) {
+    @MainActor func getUserDetail(username: String, successAction: (() -> Void)? = nil) {
         Task {
             do {
                 isFetching = true
                 let user: User = try await NetworkManager.shared.getResponseObject(url: "\(username)")
                 self.user = user
                 isFetching = false
+                successAction?()
             } catch {
                 didError = true
                 if let gfError = error as? GFError {
@@ -92,18 +94,4 @@ class GHViewModel: ObservableObject {
         }
     }
     
-}
-
-struct User: Codable {
-    let login: String
-    let avatarUrl: String
-    var name: String?
-    var location: String?
-    var bio: String?
-    let publicRepos: Int
-    let publicGists: Int
-    let htmlUrl: String
-    let following: Int
-    let followers: Int
-    let createdAt: Date
 }
